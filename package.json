@@ -1,0 +1,22 @@
+{
+  "name": "jscourse",
+  "version": "1.0.0",
+  "description": "Project for Mocha test",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeNNyA19/JSCourse.git"
+  },
+  "author": "DK",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DeNNyA19/JSCourse/issues"
+  },
+  "homepage": "https://github.com/DeNNyA19/JSCourse#readme",
+  "dependencies": {
+    "mocha": "^6.1.4"
+  }
+}
