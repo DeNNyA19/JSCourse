@@ -7,15 +7,15 @@ class DateTimeUtil {
     }
 
     today() {
-        return moment().calendar()
+        return new Date().toLocaleDateString();
     }
 
-    setYear(year) {
-        return moment().add(year, 'year').calendar()
+    setYear(date, year) {
+        return new Date(date.setYear(year)).toLocaleDateString();
     }
 
     daysDifference(dateLeft, dateRight) {
-
+        return (dateRight.getTime() - dateLeft.getTime()) / 1000;
     }
 }
 
