@@ -1,5 +1,3 @@
-const moment = require('moment')
-
 class DateTimeUtil {
 
     constructor() {
@@ -7,15 +5,15 @@ class DateTimeUtil {
     }
 
     today() {
-        return new Date().toLocaleDateString();
+        return new Date();
     }
 
     setYear(date, year) {
-        return new Date(date.setYear(year)).toLocaleDateString();
+        return new Date(date.setYear(year));
     }
 
     daysDifference(dateLeft, dateRight) {
-        return (dateRight.getTime() - dateLeft.getTime()) / 1000;
+        return Math.round((dateRight.getTime() - dateLeft.getTime()) / (24 * 3600 * 1000));
     }
 }
 
