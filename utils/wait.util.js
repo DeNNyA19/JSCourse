@@ -13,29 +13,35 @@ const doWait = (action, interval, expectedValue) => {
 
 class Wait {
 
-    forTrue(action, maxCount, interval, count = 0) {
-        return this.forCondition(action, true, maxCount, interval, count);
+    constructor() {
+        this.count = 0;
     }
 
-    forFalse(action, maxCount, interval, count = 0) {
-        return this.forCondition(action, false, maxCount, interval, count);
+    forTrue(action, maxCount, interval) {
+        return this.forCondition(action, true, maxCount, interval);
     }
 
-    forCondition(action, expectedCondition, maxCount, interval, count = 0) {
-        count++;
-        logger.info(`[${count}] Wait for ${expectedCondition}`);
+    forFalse(action, maxCount, interval) {
+        return this.forCondition(action, false, maxCount, interval);
+    }
+
+    forCondition(action, expectedCondition, maxCount, interval) {
+        this.count++;
+        logger.info(`[${this.count}] Wait for ${expectedCondition}`);
         return doWait(action, interval, expectedCondition).then(() => {
             logger.warning("Was able to reach expected condition");
+            this.count = 0;
             return true;
         }, (actionResult) => {
-            if (maxCount <= count) {
+            if (maxCount <= this.count) {
                 logger.warning(`Was not able to reach expected condition. Action result is ${actionResult}`);
+                this.count = 0;
                 return false;
             } else {
                 if (expectedCondition) {
-                    return this.forTrue(action, maxCount, interval, count);
+                    return this.forTrue(action, maxCount, interval, this.count);
                 } else {
-                    return this.forFalse(action, maxCount, interval, count);
+                    return this.forFalse(action, maxCount, interval, this.count);
                 }
             }
         })
