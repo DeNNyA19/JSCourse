@@ -3,7 +3,7 @@ class Log {
         console.log(`[INFO] ${text} [INFO]`);
     }
 
-    warning(text) {
+    warning(text = "Some text") {
         console.log(`[WARNING] ${text} [WARNING]`);
     }
 
