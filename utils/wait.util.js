@@ -11,40 +11,30 @@ const doWait = (action, interval, expectedValue) => {
     })
 }
 
+function forCondition(action, expectedCondition, maxCount, interval, count) {
+    count++;
+    logger.info(`[${count}] Wait for ${expectedCondition}`);
+    return doWait(action, interval, expectedCondition).then(() => {
+        logger.warning("Was able to reach expected condition");
+        return true;
+    }, (actionResult) => {
+        if (maxCount <= count) {
+            logger.warning(`Was not able to reach expected condition. Action result is ${actionResult}`);
+            return false;
+        } else {
+            return forCondition(action, expectedCondition, maxCount, interval, count);
+        }
+    })
+}
+
 class Wait {
 
-    constructor() {
-        this.count = 0;
-    }
-
     forTrue(action, maxCount, interval) {
-        return this.forCondition(action, true, maxCount, interval);
+        return forCondition(action, true, maxCount, interval, 0);
     }
 
     forFalse(action, maxCount, interval) {
-        return this.forCondition(action, false, maxCount, interval);
-    }
-
-    forCondition(action, expectedCondition, maxCount, interval) {
-        this.count++;
-        logger.info(`[${this.count}] Wait for ${expectedCondition}`);
-        return doWait(action, interval, expectedCondition).then(() => {
-            logger.warning("Was able to reach expected condition");
-            this.count = 0;
-            return true;
-        }, (actionResult) => {
-            if (maxCount <= this.count) {
-                logger.warning(`Was not able to reach expected condition. Action result is ${actionResult}`);
-                this.count = 0;
-                return false;
-            } else {
-                if (expectedCondition) {
-                    return this.forTrue(action, maxCount, interval, this.count);
-                } else {
-                    return this.forFalse(action, maxCount, interval, this.count);
-                }
-            }
-        })
+        return forCondition(action, false, maxCount, interval, 0);
     }
 }
 
