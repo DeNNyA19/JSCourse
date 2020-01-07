@@ -1,14 +1,20 @@
+const logWithTag = (tag, text) => {
+    /* eslint-disable no-console */
+    console.log(`[${tag}] ${new Date()} | ${text} [${tag}]`);
+    /* eslint-enable no-console */
+};
+
 class Log {
     info(text) {
-        console.log(`[INFO] ${text} [INFO]`);
+        logWithTag('INFO', text);
     }
 
-    warning(text = "Some text") {
-        console.log(`[WARNING] ${text} [WARNING]`);
+    warning(text) {
+        logWithTag('WARNING', text);
     }
 
     error(text) {
-        console.log(`[ERROR] ${text} [ERROR]`);
+        logWithTag('ERROR', text);
     }
 }
 

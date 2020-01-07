@@ -4,7 +4,9 @@
   "description": "Project for Mocha test",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test:exchangerate": "mocha test/exchangerate/**.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,13 @@
   "homepage": "https://github.com/DeNNyA19/JSCourse#readme",
   "dependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "mocha": "^6.1.4",
     "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "eslint": "^6.8.0"
   }
 }

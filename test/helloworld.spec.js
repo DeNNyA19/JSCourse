@@ -1,15 +1,12 @@
-const { describe, it } = require('mocha')
-const { assert } = require('chai')
-const moment = require('moment')
-const logger = require('../utils/log.util')
-const DateTimeUtil = require('../utils/dateTime.util')
+const { describe, it } = require('mocha');
+const DateTimeUtil = require('../utils/dateTime.util');
 
 describe('dateTime.util testSuite', () => {
     const dateTimeUtil = new DateTimeUtil();
 
     it("test", () => {
-        console.log(dateTimeUtil.daysDifference(dateTimeUtil.setYear(new Date(), 2019), new Date()))
-    })
+        console.log(dateTimeUtil.daysDifference(dateTimeUtil.setYear(new Date(), 2019), new Date()));
+    });
     // it ("today() should return today's date", () => {
     //     assert.equal(dateTimeUtil.today(), new Date().toLocaleDateString(), 'dateTimeUtil.today() returns incorrect date');
     // });

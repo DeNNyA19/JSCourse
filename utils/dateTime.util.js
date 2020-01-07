@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 class DateTimeUtil {
 
     constructor() {
@@ -14,6 +16,14 @@ class DateTimeUtil {
 
     daysDifference(dateLeft, dateRight) {
         return Math.round((dateRight.getTime() - dateLeft.getTime()) / (24 * 3600 * 1000));
+    }
+
+    dateMinusDays(minusDays) {
+        return new Date(new Date().getTime() - (minusDays * 24 * 3600 * 1000));
+    }
+
+    formatDate(date, format) {
+        return moment(date).format(format);
     }
 }
 
