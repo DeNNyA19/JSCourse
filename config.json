@@ -1,0 +1,9 @@
+{
+    "url": "https://api.exchangeratesapi.io/",
+    "startUrlGoogle": "https://www.google.com",
+    "timeouts": {
+        "pageLoad": 30000,
+        "implicit": 3000,
+        "scriptExecuting": 15000
+    }
+}

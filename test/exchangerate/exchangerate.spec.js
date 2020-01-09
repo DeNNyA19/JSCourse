@@ -1,7 +1,7 @@
 const httpClient = require('../../framework/httpclient');
 const { describe, it } = require('mocha');
 const exRateApiHelper = require('../../pages/exchangerate/index');
-const exRateConstants = require('../../pages/exchangerate/constants')
+const { dateFormat } = require('../../pages/exchangerate/constants')
 const DateTimeUtil = require('../../utils/dateTime.util');
 const logger = require('../../utils/log.util');
 
@@ -28,8 +28,8 @@ describe("ExchangeRate suite", async () => {
     it("Basic test", async () => {
         const baseCurrency = 'USD';
         const testCurrency = 'RUB';
-        const startDate = DateTimeUtil.formatDate(DateTimeUtil.dateMinusDays(10), exRateConstants.dateFormat);
-        const endDate = DateTimeUtil.formatDate(DateTimeUtil.today(), exRateConstants.dateFormat)
+        const startDate = DateTimeUtil.formatDate(DateTimeUtil.dateMinusDays(10), dateFormat);
+        const endDate = DateTimeUtil.formatDate(DateTimeUtil.today(), dateFormat)
         const rateJson = JSON.parse(await exRateApiHelper.getRateHistory(startDate, endDate, baseCurrency));
         const rateMap = new Map(Object.entries(rateJson.rates));
         verifyRateGrowth(rateMap, testCurrency);
