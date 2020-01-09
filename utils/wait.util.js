@@ -1,4 +1,4 @@
-const logger = require('./log.util')
+const logger = require('./log.util');
 
 const doWait = (action, interval, expectedValue) => {
     return new Promise((resolve, reject) => {
@@ -8,33 +8,34 @@ const doWait = (action, interval, expectedValue) => {
         } else {
             setTimeout(() => reject(actionResult), interval);
         }
-    })
-}
+    });
+};
 
-function forCondition(action, expectedCondition, maxCount, interval, count) {
+const retrierAwait = async (action, expectedCondition, maxCount, interval, count) => {
     count++;
     logger.info(`[${count}] Wait for ${expectedCondition}`);
-    return doWait(action, interval, expectedCondition).then(() => {
+    try {
+        await doWait(action, interval, expectedCondition);
         logger.warning("Was able to reach expected condition");
         return true;
-    }, (actionResult) => {
+    } catch(actionResult) {
         if (maxCount <= count) {
             logger.warning(`Was not able to reach expected condition. Action result is ${actionResult}`);
             return false;
         } else {
-            return forCondition(action, expectedCondition, maxCount, interval, count);
+            return retrierAwait(action, expectedCondition, maxCount, interval, count);
         }
-    })
-}
+    }
+};
 
 class Wait {
 
     forTrue(action, maxCount, interval) {
-        return forCondition(action, true, maxCount, interval, 0);
+        return retrierAwait(action, true, maxCount, interval, 0);
     }
 
     forFalse(action, maxCount, interval) {
-        return forCondition(action, false, maxCount, interval, 0);
+        return retrierAwait(action, false, maxCount, interval, 0);
     }
 }
 

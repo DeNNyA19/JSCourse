@@ -1,19 +1,31 @@
+const moment = require('moment');
+
+const MS_IN_DAY = 24 * 3600 * 1000;
+
 class DateTimeUtil {
 
     constructor() {
 
     }
 
-    today() {
+    static today() {
         return new Date();
     }
 
-    setYear(date, year) {
+    static setYear(date, year) {
         return new Date(date.setYear(year));
     }
 
-    daysDifference(dateLeft, dateRight) {
-        return Math.round((dateRight.getTime() - dateLeft.getTime()) / (24 * 3600 * 1000));
+    static daysDifference(dateLeft, dateRight) {
+        return Math.round((dateRight.getTime() - dateLeft.getTime()) / MS_IN_DAY);
+    }
+
+    static dateMinusDays(minusDays) {
+        return new Date(new Date().getTime() - (minusDays * MS_IN_DAY));
+    }
+
+    static formatDate(date, format) {
+        return moment(date).format(format);
     }
 }
 
